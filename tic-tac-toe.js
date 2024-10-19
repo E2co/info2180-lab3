@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Select all div elements within the game board
-    const squares = document.querySelectorAll('board > div');
+    const squares = document.querySelectorAll('#board > div');
     const statusDisplay = document.getElementById('status');
+    const newGameButton = document.querySelector('.btn');
     let currentPlayer = 'X'; // Start with player X
     let gameState = Array(9).fill(null); // Initialize game state
 
     //Loop through each square and add the 'square' class
-    squares.forEach(square => {
+    squares.forEach((square, index) => {
         square.classList.add('square');
     
         // Add click event listener to each square
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     });
 
-    function handleSquareClick(sqaure, index){
+    function handleSquareClick(element, index){
         // Check if the square is already filled or the game is over
         if (gameState[index] || checkWinner()){
             return;
@@ -33,8 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update the game state
         gameState[index] = currentPlayer;
-        square.textContent = currentPlayer; // Display the current player's symbol
-        square.classList.add(currentPlayer); // Add the appropriate class for styling
+        element.textContent = currentPlayer; // Display the current player's symbol
+        element.classList.add(currentPlayer); // Add the appropriate class for styling
 
         // Check for a winner after the move
         const winner = checkWinner();
@@ -63,5 +64,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         return null; // No winner
     }
+
+    // New Game
+    newGameButton.addEventListener('click', () => {
+        gameState.fill(null); // Reset the game state
+        squares.forEach(square => {
+            square.textContent = ''; // Claer the square
+            square.classList.remove('X', 'O'); // Remove player classes
+        });
+
+        currentPlayer = 'X'; // Reset to player X
+        statusDisplay.textContent = 'Move your mouse over a square and click to play an X or an O.';
+        statusDisplay.classList.remove('you-won');
+    });
 
 });
