@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
         square.addEventListener('click', () => {
             handleSquareClick(square, index);
         });
+
+        // Add mouse enter and leave event listeners for hover effect
+        square.addEventListener('mouseenter', () => {
+            square.classList.add('hover');
+        });
+
+        square.addEventListener('mouseleave', () => {
+            square.classList.remove('hover');
+        });
     
     });
 
