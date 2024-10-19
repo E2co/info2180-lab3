@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (winner){
             statusDisplay.textContent = `Congratulations! ${winner} is the Winner!`;
             statusDisplay.classList.add('you-won');
+        } else if (isDraw()) {
+            statusDisplay.textContent = "It's a Draw!";
+            statusDisplay.classList.remove('you-won');
         } else {
             // Switch Players
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -65,6 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return null; // No winner
     }
 
+    function isDraw() {
+        return gameState.every(square => square !== null); // Check if all boxes are occupied
+    }
+
     // New Game
     newGameButton.addEventListener('click', () => {
         gameState.fill(null); // Reset the game state
@@ -77,5 +84,4 @@ document.addEventListener('DOMContentLoaded', () => {
         statusDisplay.textContent = 'Move your mouse over a square and click to play an X or an O.';
         statusDisplay.classList.remove('you-won');
     });
-
 });
