@@ -37,8 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         square.classList.add(currentPlayer); // Add the appropriate class for styling
 
         // Check for a winner after the move
-        if (checkWinner()){
-            statusDisplay.textContent = `${currentPlayer} has won!`;
+        const winner = checkWinner();
+        if (winner){
+            statusDisplay.textContent = `Congratulations! ${winner} is the Winner!`;
             statusDisplay.classList.add('you-won');
         } else {
             // Switch Players
@@ -56,11 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let comb of winningCombi) {
             const [a, b, c] = comb;
             if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c] ) {
-                return true; // A winner is found
+                return gameState[a]; // A winner is found
             }
         }
 
-        return false; // No winner
+        return null; // No winner
     }
 
 });
